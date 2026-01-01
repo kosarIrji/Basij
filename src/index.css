@@ -1,17 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@theme {
-  --color-light-gray: #B1B2B9;
-  --color-dark-slate: #272e36;
-  --color-off-white: #F0E9E6;
-  --color-medium-gray: #9095A1;
-  --color-slate-gray: #6b5d62;
-  --color-dark-blue: #191f25;
-  --my-primary: #272e36;
-  --my-secondary: #f0E9E6;
-  --my-accent: #9095a1;
-}
+
 body {
-  @apply font-modam;
+  font-family: 'modam', sans-serif;
+}
+:root {
+  --background: #1a2e22;
+  --sidebar: #1a2e22 ;
+  --box:#ffff;
+  --text: #2f3e3b;
+  --accent: #225034; 
+  --accent-soft: #084420;
 }

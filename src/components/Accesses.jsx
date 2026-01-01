@@ -1,59 +1,165 @@
 /* eslint-disable no-unused-vars */
-import { motion } from "framer-motion";
-import AccsessesArzeMabar from "./AccessesArzeMabar";
-import AccsessesKyfiatMabar from "./AccsessesKyfiatMabar";
+import { motion, AnimatePresence } from "framer-motion";
+import AccsessesArzeMabar from "../components/charts/AccessesArzeMabar";
+import AccsessesKyfiatMabar from "../components/charts/AccsessesKyfiatMabar";
 import MapStreet from "./MapStreet";
+import { Map } from "lucide-react";
+import { Button } from "../components/ui/Button";
+import Details from "../components/config/details.json";
+import Accordion from "./ui/Accordion";
+import { useState } from "react";
+
+
+
+
+
 
 export default function Accesses() {
+  const [selectedComponent, setSelectedComponent] = useState("key");
+
   return (
-    <section className="">
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-5">
-        {/* نقشه - در تبلت بالاتر از بخش متن می‌آید */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6 }}
-          className="order-1 md:order-1 md:col-span-2 lg:order-2 lg:col-span-2 rounded-xl shadow-sm min-h-[738px] lg:h-full"
-        >
-          <MapStreet />
-        </motion.div>
+    <section className="w-full mt-3">
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-3">
+        {/* باکس توضیحات */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
+          className=" rounded-2xl shadow-sm p-5 border lg:col-span-3 bg-white/50 backdrop-blur-md "
         >
-          <div className="text-gray-700 bg-white rounded-2xl shadow-sm p-6 border border-gray-200 mb-5 lg:grid-rows-2">
-            <h3 className="text-3xl sm:text-2xl  font-extrabold md:text-2xl font-modam text-center text-[#4F7C6B] mb-4 leading-snug lg:row-span-1">
-              دسترسی محله بسیج
-            </h3>
-            <p className="text-sm sm:text-xs md:text-base text-justify md:leading-loose">
-              میانگین کیفیت معابر محله بسیج با امتیاز ۴.۱ از ۵ نشان‌دهنده وضعیت
-              نسبتاً مطلوب زیرساخت‌هاست. معابر عمدتاً باریک و محلی‌اند و نیازهای
-              درون‌محله‌ای را پوشش می‌دهند، در حالی‌که خیابان‌های شریانی ارتباط
-              با سایر مناطق را فراهم می‌سازند. با این‌ حال، ترافیک سنگین در
-              ساعات اوج از چالش‌های مهم دسترسی در محله به‌شمار می‌رود.
-            </p>
-          </div>
-          <div className="flex flex-col gap-5 order-2 md:order-2 lg:order-2">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <AccsessesArzeMabar />
-            </motion.div>
+          <h3 className="text-3xl    w-full flex flex-row-reverse aling-centeritems-center text-right justify-end gap-2  font-modam font-extrabold   text-[var(--text)] mb-4 leading-snug">
+            دسترسی و کیفیت معابر
+            {Details.alley.name}{" "}
+            <span>
+              <Map size={28} />
+            </span>
+          </h3>
+          <p className="md:leading-loose lg:leading-loose font-modam  text-justify text-base  ">
+            محلهٔ بسیج به دلیل <span className="bg-gray-300">همجواری با معابر اصلی شهر</span>، ارتباط مناسبی با سایر <span className="bg-gray-300">
+            بخش‌ها دارد</span>. موقعیت نسبتاً مرکزی آن باعث شده حجم بالایی از عبور و
+            مرور را تجربه کند و در ساعات پرتردد با <strong className="text-red-700">ترافیک و آلودگی صوتی</strong> مواجه
+            شود.
+          </p>
+          <div className=" bg-white/40  border-r-4 border-green-800 shadow-md mb-1 p-2 ">
+          <p className="md:leading-loose lg:leading-loose font-modam  text-justify text-base  ">
+            <strong className="text-green-800">میانگین کیفیت معابر   ( ۴.۱ از ۵): </strong>
+            این شاخص بیانگر وضعیت <span className="bg-green-300">نسبتاً مطلوب</span> معابر از نظر عرض، کف‌سازی و کاربری است. مسیرهای محلی پاسخگوی نیازهای روزمره ساکنان هستند.</p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              <AccsessesKyfiatMabar />
-            </motion.div>
           </div>
+          <div className=" bg-white/40  border-r-4 border-orange-800 shadow-md mb-1 p-2 ">
+          <p className="md:leading-loose lg:leading-loose font-modam  text-justify text-base  ">
+            <strong className="text-red-800">   نکته ساختاری:  </strong>تعداد زیاد کوچه‌های بن‌بست، جریان عبور را محدود کرده و حجم تردد در معابر اصلی را افزایش می‌دهد.
+          </p>
+          </div>
+          <Accordion
+            title={
+              <span
+                className="text-base font-bold bg-text-right text-red-700"
+                style={{ fontFamily: "Modam" }}
+              >
+                {" "}
+                معابر اصلی :
+              </span>
+            }
+            content={
+              <ul>
+                <li>▪خیابان نادر  (غرب):خیابانی با کیفیت بالا و ترکیب کاربری‌های تجاری و مسکونی.</li>{" "}
+                <li>▪بلوار امام خمینی (جنوب):یکی از خیابان‌های اصلی شهر با نقش اقتصادی و ارتباطی مهم.</li>
+                <li>▪  	خیابان طالقانی غربی    (شمال):یک‌طرفه، شلوغ و متمرکز بر کاربری‌های تجاری.</li>
+                <li>▪ 	خیابان امیریه جنوبی (شرق):یک‌طرفه، شلوغ و متمرکز بر کاربری‌های تجاری.</li>
+                <li>▪  	خیابان میرزارضاکرمانی (معبر درون محله): مسیر داخلی مهم که به کاهش فشار ترافیکی و تردد محلی کمک می‌کند.</li>
+              </ul>
+            }
+          />{" "}
+          <Accordion
+            title={
+              <span
+                className="text-base font-bold bg-text-right text-blue-700"
+                style={{ fontFamily: "Modam" }}
+              >
+                {" "}
+                تقاطع‌های مهم:
+              </span>
+            }
+            content={
+              <ul>
+                <li>▪چهارراه امیریه</li> 
+                 <li>▪میدان فردوسی </li>
+               <li>چهارراه مادر</li>
+               <li>میدان فردوسی </li>
+              </ul>
+            }
+          />{" "}
+          <p className="md:leading-loose lg:leading-loose font-modam  text-justify text-base  ">
+            <strong className="text-gray-800">   نکته :  </strong>دسترسی به حمل‌ونقل عمومی: این محله از نظر نزدیکی به ایستگاه‌های حمل‌ونقل عمومی شرایط خوبی دارد و به دلیل موقعیت نزدیک به مرکز شهر، پتانسیل بالایی برای پیاده‌محوری دارد.
+
+</p>
+      
+
+
+
         </motion.div>
 
-        {/* متن و نمودارها */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className=" rounded-2xl shadow-sm p-5 border lg:col-span-2 lg:leading-loose bg-white/50 backdrop-blur-md "
+        >
+          <div className="flex flex-wrap justify-center gap-3 mb-2">
+            {[
+              { label: "عرض معبر", value: "arze" },
+              { label: "کیفیت معبر", value: "key" },
+            ].map((btn) => (
+              <Button
+                key={btn.value}
+                onClick={() => setSelectedComponent(btn.value)}
+                variant={
+                  selectedComponent === btn.value ? "default" : "outline"
+                }
+                className="w-28 text-sm"
+              >
+                {btn.label}
+              </Button>
+            ))}
+          </div>
+
+          <AnimatePresence mode="wait">
+            {selectedComponent === "arze" && (
+              <motion.div
+                key="arze"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.4 }}
+              >
+                <AccsessesArzeMabar />
+              </motion.div>
+            )}
+
+            {selectedComponent === "key" && (
+              <motion.div
+                key="key"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.4 }}
+              >
+                <AccsessesKyfiatMabar />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.div>
+
+        {/* نقشه - کل عرض پایین */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6 }}
+          className="lg:col-span-5 rounded-xl shadow-sm min-h-[600px] lg:h-full"
+        >
+          <MapStreet />
+        </motion.div>
       </div>
     </section>
   );
